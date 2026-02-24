@@ -180,10 +180,9 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                     borderColor: "#933096",
                     color: "#ffffff",
                   }}
-                  className="hover:opacity-90"
+                  className="hover:opacity-90 w-full md:w-auto"
                   type="submit"
                   size="lg"
-                  className="w-full md:w-auto"
                 >
                   <Send className="w-5 h-5" />
                   Envoyer le message
