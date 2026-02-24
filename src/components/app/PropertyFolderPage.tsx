@@ -35,7 +35,7 @@ export interface RequestFormData {
   email: string;
 }
 
-export function PropertyRequestModal({
+export function PropertyFolderPage({
   propertyId,
   propertyTitle,
   propertyImage,

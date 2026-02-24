@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "noEmitOnError": false,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "strict": false
+  },
+  "exclude": ["node_modules", "build"]
+}

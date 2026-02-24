@@ -203,7 +203,7 @@ export default function App() {
           </p>
           <div className="space-y-3">
             <Button 
-              className="w-full" 
+              className="w-full bg-primary-700 hover:bg-primary-800 text-white" 
               onClick={() => handleLogin('vip')}
             >
               Fatou Cissé (Client VIP)
