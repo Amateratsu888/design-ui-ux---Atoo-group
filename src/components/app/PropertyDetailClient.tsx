@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import { 
-  MapPin, 
-  Maximize, 
-  Home, 
-  Bath, 
-  ChevronLeft, 
-  ChevronRight, 
-  CheckCircle2, 
-  X, 
-  Tag, 
-  DoorClosed, 
-  Layers, 
-  Mountain, 
-  Car, 
+import React, { useState } from "react";
+import {
+  MapPin,
+  Maximize,
+  Home,
+  Bath,
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle2,
+  X,
+  Tag,
+  DoorClosed,
+  Layers,
+  Mountain,
+  Car,
   ParkingSquare,
   ArrowLeft,
   Crown,
   Send,
-  Calendar
-} from 'lucide-react';
-import { properties } from '../../data/mockData';
-import { Button } from '../Button';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { PropertyMap } from '../PropertyMap';
-import { PropertyRequestModal, RequestFormData } from './PropertyRequestModal';
-import { Badge } from '../ui/badge';
+  Calendar,
+} from "lucide-react";
+import { properties } from "../../data/mockData";
+import { Button } from "../Button";
+import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { PropertyMap } from "../PropertyMap";
+import { PropertyRequestModal, RequestFormData } from "./PropertyRequestModal";
+import { Badge } from "../ui/badge";
 
 interface PropertyDetailClientProps {
   propertyId: string;
@@ -35,25 +35,25 @@ interface PropertyDetailClientProps {
   userName?: string;
 }
 
-export function PropertyDetailClient({ 
-  propertyId, 
-  onNavigate, 
-  isVIP = false, 
-  userEmail, 
-  userPhone, 
-  userName 
+export function PropertyDetailClient({
+  propertyId,
+  onNavigate,
+  isVIP = false,
+  userEmail,
+  userPhone,
+  userName,
 }: PropertyDetailClientProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
 
-  const property = properties.find(p => p.id === propertyId);
+  const property = properties.find((p) => p.id === propertyId);
 
   if (!property) {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => onNavigate('catalog')}
+            onClick={() => onNavigate("catalog")}
             className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-slate-700" />
@@ -61,8 +61,10 @@ export function PropertyDetailClient({
           <h2 className="text-slate-900">Bien introuvable</h2>
         </div>
         <div className="bg-white rounded-xl shadow-md p-8 text-center">
-          <p className="text-slate-600 mb-6">Le bien demandé n'existe pas ou vous n'y avez pas accès.</p>
-          <Button onClick={() => onNavigate('catalog')}>
+          <p className="text-slate-600 mb-6">
+            Le bien demandé n'existe pas ou vous n'y avez pas accès.
+          </p>
+          <Button onClick={() => onNavigate("catalog")}>
             Retour au catalogue
           </Button>
         </div>
@@ -70,18 +72,18 @@ export function PropertyDetailClient({
     );
   }
 
-  // Vérifier si le client a accès au bien
-  // Check if VIP exclusivity is still active
   const isVIPExclusive = property.vipOnly && property.vipExclusivityEndDate;
-  const vipEndDate = isVIPExclusive ? new Date(property.vipExclusivityEndDate!) : null;
+  const vipEndDate = isVIPExclusive
+    ? new Date(property.vipExclusivityEndDate!)
+    : null;
   const isVIPActive = vipEndDate && vipEndDate > new Date();
-  
+
   if (isVIPActive && !isVIP) {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => onNavigate('catalog')}
+            onClick={() => onNavigate("catalog")}
             className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
           >
             <ArrowLeft className="w-5 h-5 text-slate-700" />
@@ -91,12 +93,15 @@ export function PropertyDetailClient({
         <div className="bg-white rounded-xl shadow-md p-8 text-center">
           <Crown className="w-16 h-16 text-amber-500 mx-auto mb-4" />
           <h3 className="mb-2">Bien exclusif VIP</h3>
-          <p className="text-slate-600 mb-6">Ce bien est réservé aux clients VIP. Passez au statut VIP pour y accéder.</p>
+          <p className="text-slate-600 mb-6">
+            Ce bien est réservé aux clients VIP. Passez au statut VIP pour y
+            accéder.
+          </p>
           <div className="flex gap-3 justify-center">
-            <Button onClick={() => onNavigate('catalog')}>
+            <Button onClick={() => onNavigate("catalog")}>
               Retour au catalogue
             </Button>
-            <Button variant="outline" onClick={() => onNavigate('book-call')}>
+            <Button variant="outline" onClick={() => onNavigate("book-call")}>
               Devenir VIP
             </Button>
           </div>
@@ -106,28 +111,68 @@ export function PropertyDetailClient({
   }
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'XOF',
+    return new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "XOF",
       minimumFractionDigits: 0,
     }).format(price);
   };
 
   const getFinancingLabel = (option: string) => {
     const labels: Record<string, string> = {
-      'comptant': 'Achat comptant',
-      'échelonné': 'Plan d\'échelonnement',
-      'tontine': 'Tontine',
-      'location-vente': 'Location-vente',
-      'vefa': 'VEFA',
+      comptant: "Achat comptant",
+      échelonné: "Plan d'échelonnement",
+      tontine: "Tontine",
+      "location-vente": "Location-vente",
+      vefa: "VEFA",
     };
     return labels[option] || option;
   };
 
+  // Style inline pour le badge statut — aucun changement au hover
+  const getStatusStyle = (status: string): React.CSSProperties => {
+    if (status === "disponible")
+      return {
+        backgroundColor: "#933096",
+        color: "#ffffff",
+        borderColor: "#933096",
+      };
+    if (status === "réservé")
+      return {
+        backgroundColor: "#EAB308",
+        color: "#ffffff",
+        borderColor: "#EAB308",
+      };
+    if (status === "vendu")
+      return {
+        backgroundColor: "#94A3B8",
+        color: "#ffffff",
+        borderColor: "#94A3B8",
+      };
+    if (status === "nouveau")
+      return {
+        backgroundColor: "#2563EB",
+        color: "#ffffff",
+        borderColor: "#2563EB",
+      };
+    return {};
+  };
+
+  const getStatusLabel = (status: string) => {
+    const labels: Record<string, string> = {
+      disponible: "Disponible",
+      réservé: "Réservé",
+      vendu: "Vendu",
+      nouveau: "Nouveau",
+    };
+    return labels[status] || status;
+  };
+
   const handleRequestSubmit = (data: RequestFormData) => {
-    console.log('Demande envoyée:', data, 'pour le bien:', property);
-    // TODO: Envoyer la demande au backend
-    alert('Demande envoyée avec succès ! Vous pouvez suivre son état dans "Mes demandes"');
+    console.log("Demande envoyée:", data, "pour le bien:", property);
+    alert(
+      'Demande envoyée avec succès ! Vous pouvez suivre son état dans "Mes demandes"',
+    );
     setShowRequestModal(false);
   };
 
@@ -136,7 +181,7 @@ export function PropertyDetailClient({
       {/* Header */}
       <div className="flex items-center gap-4">
         <button
-          onClick={() => onNavigate('catalog')}
+          onClick={() => onNavigate("catalog")}
           className="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-slate-700" />
@@ -237,11 +282,13 @@ export function PropertyDetailClient({
                 onClick={() => setSelectedImage(property.images[3])}
               />
               {property.images.length > 4 && (
-                <div 
+                <div
                   className="absolute inset-0 bg-slate-900/70 flex items-center justify-center cursor-pointer hover:bg-slate-900/80 transition-colors"
                   onClick={() => setSelectedImage(property.images[4])}
                 >
-                  <span className="text-white text-2xl">+{property.images.length - 4}</span>
+                  <span className="text-white text-2xl">
+                    +{property.images.length - 4}
+                  </span>
                 </div>
               )}
             </div>
@@ -256,11 +303,17 @@ export function PropertyDetailClient({
           <div className="bg-white rounded-xl shadow-md p-6">
             <div className="mb-6">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm">
-                  {property.type === 'villa' ? 'Villa' : 
-                   property.type === 'appartement' ? 'Appartement' : 
-                   property.type === 'terrain' ? 'Terrain' : 
-                   'Espace commercial'}
+                <span
+                  className="inline-block px-3 py-1 rounded-full text-sm"
+                  style={{ backgroundColor: "#93309620", color: "#933096" }}
+                >
+                  {property.type === "villa"
+                    ? "Villa"
+                    : property.type === "appartement"
+                      ? "Appartement"
+                      : property.type === "terrain"
+                        ? "Terrain"
+                        : "Espace commercial"}
                 </span>
                 {isVIPActive && (
                   <Badge variant="gold" className="shadow-md">
@@ -268,35 +321,36 @@ export function PropertyDetailClient({
                     Exclusivité VIP
                   </Badge>
                 )}
-                {/* Status Badge */}
-                <Badge 
-                  className={`
-                    ${property.status === 'disponible' ? 'bg-green-600 hover:bg-green-700 text-white border-green-600' : ''}
-                    ${property.status === 'réservé' ? 'bg-yellow-500 hover:bg-yellow-600 text-white border-yellow-500' : ''}
-                    ${property.status === 'vendu' ? 'bg-slate-400 hover:bg-slate-500 text-white border-slate-400' : ''}
-                    ${property.status === 'nouveau' ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-600' : ''}
-                  `}
+                {/* Status Badge — couleur fixe, pas de hover */}
+                <Badge
+                  style={getStatusStyle(property.status)}
+                  className="hover:opacity-100"
                 >
-                  {property.status === 'disponible' && 'Disponible'}
-                  {property.status === 'réservé' && 'Réservé'}
-                  {property.status === 'vendu' && 'Vendu'}
-                  {property.status === 'nouveau' && 'Nouveau'}
+                  {getStatusLabel(property.status)}
                 </Badge>
               </div>
               {isVIPActive && vipEndDate && (
-                <div className="flex items-center gap-2 text-primary-700 mb-3 text-xs">
+                <div
+                  className="flex items-center gap-2 mb-3 text-xs"
+                  style={{ color: "#933096" }}
+                >
                   <Calendar className="w-3 h-3" />
-                  <span>Exclusivité VIP jusqu'au {vipEndDate.toLocaleDateString('fr-FR')}</span>
+                  <span>
+                    Exclusivité VIP jusqu'au{" "}
+                    {vipEndDate.toLocaleDateString("fr-FR")}
+                  </span>
                 </div>
               )}
-              <h3 className="text-primary-700 mb-2">{formatPrice(property.price)}</h3>
+              <h3 style={{ color: "#933096" }} className="mb-2">
+                {formatPrice(property.price)}
+              </h3>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-y border-slate-200">
               <div>
                 <p className="text-sm text-slate-600 mb-1">Surface</p>
                 <div className="flex items-center gap-2">
-                  <Maximize className="w-5 h-5 text-primary-700" />
+                  <Maximize className="w-5 h-5" style={{ color: "#933096" }} />
                   <span className="text-slate-900">{property.surface} m²</span>
                 </div>
               </div>
@@ -304,8 +358,14 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Catégorie</p>
                   <div className="flex items-center gap-2">
-                    <Tag className="w-5 h-5 text-primary-700" />
-                    <span className="text-slate-900 capitalize">{property.category === 'vente' ? 'Vente' : property.category === 'location-vente' ? 'Location-vente' : 'Location'}</span>
+                    <Tag className="w-5 h-5" style={{ color: "#933096" }} />
+                    <span className="text-slate-900 capitalize">
+                      {property.category === "vente"
+                        ? "Vente"
+                        : property.category === "location-vente"
+                          ? "Location-vente"
+                          : "Location"}
+                    </span>
                   </div>
                 </div>
               )}
@@ -313,7 +373,7 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Chambres</p>
                   <div className="flex items-center gap-2">
-                    <Home className="w-5 h-5 text-primary-700" />
+                    <Home className="w-5 h-5" style={{ color: "#933096" }} />
                     <span className="text-slate-900">{property.bedrooms}</span>
                   </div>
                 </div>
@@ -322,17 +382,24 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Salles de bain</p>
                   <div className="flex items-center gap-2">
-                    <Bath className="w-5 h-5 text-primary-700" />
+                    <Bath className="w-5 h-5" style={{ color: "#933096" }} />
                     <span className="text-slate-900">{property.bathrooms}</span>
                   </div>
                 </div>
               )}
               {property.guestToilet !== undefined && (
                 <div>
-                  <p className="text-sm text-slate-600 mb-1">Toilettes visiteur</p>
+                  <p className="text-sm text-slate-600 mb-1">
+                    Toilettes visiteur
+                  </p>
                   <div className="flex items-center gap-2">
-                    <DoorClosed className="w-5 h-5 text-primary-700" />
-                    <span className="text-slate-900">{property.guestToilet ? 'Oui' : 'Non'}</span>
+                    <DoorClosed
+                      className="w-5 h-5"
+                      style={{ color: "#933096" }}
+                    />
+                    <span className="text-slate-900">
+                      {property.guestToilet ? "Oui" : "Non"}
+                    </span>
                   </div>
                 </div>
               )}
@@ -340,7 +407,7 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Étage</p>
                   <div className="flex items-center gap-2">
-                    <Layers className="w-5 h-5 text-primary-700" />
+                    <Layers className="w-5 h-5" style={{ color: "#933096" }} />
                     <span className="text-slate-900">{property.floor}</span>
                   </div>
                 </div>
@@ -349,8 +416,13 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Niveau du sol</p>
                   <div className="flex items-center gap-2">
-                    <Mountain className="w-5 h-5 text-primary-700" />
-                    <span className="text-slate-900">{property.groundLevel}</span>
+                    <Mountain
+                      className="w-5 h-5"
+                      style={{ color: "#933096" }}
+                    />
+                    <span className="text-slate-900">
+                      {property.groundLevel}
+                    </span>
                   </div>
                 </div>
               )}
@@ -358,8 +430,13 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Parking</p>
                   <div className="flex items-center gap-2">
-                    <ParkingSquare className="w-5 h-5 text-primary-700" />
-                    <span className="text-slate-900">{property.parking} places</span>
+                    <ParkingSquare
+                      className="w-5 h-5"
+                      style={{ color: "#933096" }}
+                    />
+                    <span className="text-slate-900">
+                      {property.parking} places
+                    </span>
                   </div>
                 </div>
               )}
@@ -367,8 +444,10 @@ export function PropertyDetailClient({
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Garage</p>
                   <div className="flex items-center gap-2">
-                    <Car className="w-5 h-5 text-primary-700" />
-                    <span className="text-slate-900">{property.garageSpaces} places</span>
+                    <Car className="w-5 h-5" style={{ color: "#933096" }} />
+                    <span className="text-slate-900">
+                      {property.garageSpaces} places
+                    </span>
                   </div>
                 </div>
               )}
@@ -376,20 +455,24 @@ export function PropertyDetailClient({
 
             <div className="mt-6">
               <h4 className="text-slate-900 mb-4">Description</h4>
-              <p className="text-slate-700 leading-relaxed">{property.description}</p>
+              <p className="text-slate-700 leading-relaxed">
+                {property.description}
+              </p>
             </div>
 
-            {/* Amenities */}
             {property.amenities && property.amenities.length > 0 && (
               <div className="mt-6">
                 <h4 className="text-slate-900 mb-4">Commodités</h4>
                 <div className="flex flex-wrap gap-2">
                   {property.amenities.map((amenity, index) => (
-                    <span 
+                    <span
                       key={index}
                       className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg text-sm"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-primary-700" />
+                      <CheckCircle2
+                        className="w-4 h-4"
+                        style={{ color: "#933096" }}
+                      />
                       {amenity}
                     </span>
                   ))}
@@ -413,67 +496,100 @@ export function PropertyDetailClient({
           {/* Financing Options */}
           <div className="bg-white rounded-xl shadow-md p-6">
             <h4 className="text-slate-900 mb-4">Options de financement</h4>
-            
-            {/* Plans de paiement pour terrains */}
-            {property.type === 'terrain' && property.paymentPlans && property.paymentPlans.length > 0 ? (
+
+            {property.type === "terrain" &&
+            property.paymentPlans &&
+            property.paymentPlans.length > 0 ? (
               <div className="space-y-6">
-                {/* Paiement comptant */}
                 <div className="border border-slate-200 rounded-lg p-4">
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary-700 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2
+                      className="w-5 h-5 mt-0.5 flex-shrink-0"
+                      style={{ color: "#933096" }}
+                    />
                     <div className="flex-1">
                       <p className="text-slate-900 mb-2">Paiement Comptant</p>
                       <div className="bg-slate-50 p-3 rounded-lg">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm text-slate-600">Prix total</span>
-                          <span className="text-primary-700">{formatPrice(property.price)}</span>
+                          <span className="text-sm text-slate-600">
+                            Prix total
+                          </span>
+                          <span style={{ color: "#933096" }}>
+                            {formatPrice(property.price)}
+                          </span>
                         </div>
                       </div>
-                      <p className="text-sm text-slate-600 mt-2">Paiement intégral au moment de l'achat</p>
+                      <p className="text-sm text-slate-600 mt-2">
+                        Paiement intégral au moment de l'achat
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Plans d'échelonnement */}
                 {property.paymentPlans.map((plan) => (
-                  <div key={plan.duration} className="border border-slate-200 rounded-lg p-4">
+                  <div
+                    key={plan.duration}
+                    className="border border-slate-200 rounded-lg p-4"
+                  >
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-700 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2
+                        className="w-5 h-5 mt-0.5 flex-shrink-0"
+                        style={{ color: "#933096" }}
+                      />
                       <div className="flex-1">
-                        <p className="text-slate-900 mb-2">Plan d'échelonnement {plan.duration} mois</p>
+                        <p className="text-slate-900 mb-2">
+                          Plan d'échelonnement {plan.duration} mois
+                        </p>
                         <div className="space-y-2">
                           <div className="bg-slate-50 p-3 rounded-lg space-y-2">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-600">Prix total</span>
-                              <span className="text-slate-900">{formatPrice(plan.totalPrice)}</span>
+                              <span className="text-sm text-slate-600">
+                                Prix total
+                              </span>
+                              <span className="text-slate-900">
+                                {formatPrice(plan.totalPrice)}
+                              </span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-600">Apport initial</span>
-                              <span className="text-primary-700">{formatPrice(plan.downPayment)}</span>
+                              <span className="text-sm text-slate-600">
+                                Apport initial
+                              </span>
+                              <span style={{ color: "#933096" }}>
+                                {formatPrice(plan.downPayment)}
+                              </span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-600">Mensualité</span>
-                              <span className="text-primary-700">{formatPrice(plan.monthlyPayment)}</span>
+                              <span className="text-sm text-slate-600">
+                                Mensualité
+                              </span>
+                              <span style={{ color: "#933096" }}>
+                                {formatPrice(plan.monthlyPayment)}
+                              </span>
                             </div>
                           </div>
                         </div>
                         <p className="text-sm text-slate-600 mt-2">
-                          {plan.duration} mensualités de {formatPrice(plan.monthlyPayment)} après un apport de {formatPrice(plan.downPayment)}
+                          {plan.duration} mensualités de{" "}
+                          {formatPrice(plan.monthlyPayment)} après un apport de{" "}
+                          {formatPrice(plan.downPayment)}
                         </p>
                       </div>
                     </div>
                   </div>
                 ))}
 
-                {/* Tontine si disponible */}
-                {property.financingOptions.includes('tontine') && (
+                {property.financingOptions.includes("tontine") && (
                   <div className="border border-slate-200 rounded-lg p-4">
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary-700 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2
+                        className="w-5 h-5 mt-0.5 flex-shrink-0"
+                        style={{ color: "#933096" }}
+                      />
                       <div className="flex-1">
                         <p className="text-slate-900 mb-2">Système Tontine</p>
                         <p className="text-sm text-slate-600">
-                          Système de tontine collective pour terrains - Contactez-nous pour plus de détails
+                          Système de tontine collective pour terrains -
+                          Contactez-nous pour plus de détails
                         </p>
                       </div>
                     </div>
@@ -481,19 +597,31 @@ export function PropertyDetailClient({
                 )}
               </div>
             ) : (
-              // Options de financement pour autres types de biens
               <div className="space-y-3">
                 {property.financingOptions.map((option) => (
-                  <div key={option} className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
-                    <CheckCircle2 className="w-5 h-5 text-primary-700 mt-0.5 flex-shrink-0" />
+                  <div
+                    key={option}
+                    className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg"
+                  >
+                    <CheckCircle2
+                      className="w-5 h-5 mt-0.5 flex-shrink-0"
+                      style={{ color: "#933096" }}
+                    />
                     <div>
-                      <p className="text-slate-900">{getFinancingLabel(option)}</p>
+                      <p className="text-slate-900">
+                        {getFinancingLabel(option)}
+                      </p>
                       <p className="text-sm text-slate-600 mt-1">
-                        {option === 'comptant' && 'Paiement intégral au moment de l\'achat'}
-                        {option === 'échelonné' && 'Plans sur mesure de 12 à 36 mois'}
-                        {option === 'tontine' && 'Système de tontine collective pour terrains'}
-                        {option === 'location-vente' && 'Devenez propriétaire progressivement'}
-                        {option === 'vefa' && 'Paiement par paliers d\'avancement des travaux'}
+                        {option === "comptant" &&
+                          "Paiement intégral au moment de l'achat"}
+                        {option === "échelonné" &&
+                          "Plans sur mesure de 12 à 36 mois"}
+                        {option === "tontine" &&
+                          "Système de tontine collective pour terrains"}
+                        {option === "location-vente" &&
+                          "Devenez propriétaire progressivement"}
+                        {option === "vefa" &&
+                          "Paiement par paliers d'avancement des travaux"}
                       </p>
                     </div>
                   </div>
@@ -508,10 +636,16 @@ export function PropertyDetailClient({
           <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
             <h4 className="text-slate-900 mb-4">Intéressé par ce bien ?</h4>
             <p className="text-slate-600 mb-6 text-sm">
-              Faites une demande pour obtenir plus d'informations ou organiser une visite.
+              Faites une demande pour obtenir plus d'informations ou organiser
+              une visite.
             </p>
-            <Button 
-              className="w-full" 
+            <Button
+              style={{
+                backgroundColor: "#933096",
+                borderColor: "#933096",
+                color: "#ffffff",
+              }}
+              className="w-full hover:opacity-90"
               onClick={() => setShowRequestModal(true)}
             >
               <Send className="w-5 h-5" />
@@ -539,7 +673,7 @@ export function PropertyDetailClient({
       {/* Image Lightbox Modal */}
       {selectedImage && (
         <div className="fixed inset-0 bg-slate-900/95 flex items-center justify-center z-50 p-4">
-          <button 
+          <button
             onClick={() => setSelectedImage(null)}
             className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
           >
@@ -551,7 +685,9 @@ export function PropertyDetailClient({
               <button
                 onClick={() => {
                   const currentIndex = property.images.indexOf(selectedImage);
-                  const prevIndex = (currentIndex - 1 + property.images.length) % property.images.length;
+                  const prevIndex =
+                    (currentIndex - 1 + property.images.length) %
+                    property.images.length;
                   setSelectedImage(property.images[prevIndex]);
                 }}
                 className="absolute left-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
@@ -580,7 +716,8 @@ export function PropertyDetailClient({
           </div>
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white">
-            {property.images.indexOf(selectedImage) + 1} / {property.images.length}
+            {property.images.indexOf(selectedImage) + 1} /{" "}
+            {property.images.length}
           </div>
         </div>
       )}

@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
-import { X, Send, Calendar, Clock, Phone, Mail, MessageSquare, Home, Info, CreditCard } from 'lucide-react';
-import { Button } from '../Button';
-import { RequestType } from './MyRequestsPage';
+import React, { useState } from "react";
+import {
+  X,
+  Send,
+  Calendar,
+  Clock,
+  Phone,
+  Mail,
+  MessageSquare,
+  Home,
+  Info,
+  CreditCard,
+} from "lucide-react";
+import { Button } from "../Button";
+import { RequestType } from "./MyRequestsPage";
 
 interface PropertyRequestModalProps {
   propertyId: string;
@@ -36,28 +47,35 @@ export function PropertyRequestModal({
   userName,
 }: PropertyRequestModalProps) {
   const [formData, setFormData] = useState<RequestFormData>({
-    type: 'visite',
-    message: '',
-    preferredDate: '',
-    preferredTime: '',
-    phone: userPhone || '+221 ',
-    email: userEmail || '',
+    type: "visite",
+    message: "",
+    preferredDate: "",
+    preferredTime: "",
+    phone: userPhone || "+221 ",
+    email: userEmail || "",
   });
 
-  const [errors, setErrors] = useState<Partial<Record<keyof RequestFormData, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof RequestFormData, string>>
+  >({});
 
-  const requestTypes: { value: RequestType; label: string; icon: any; description: string }[] = [
+  const requestTypes: {
+    value: RequestType;
+    label: string;
+    icon: any;
+    description: string;
+  }[] = [
     {
-      value: 'visite',
-      label: 'Demande de visite',
+      value: "visite",
+      label: "Demande de visite",
       icon: Calendar,
-      description: 'Planifier une visite du bien',
+      description: "Planifier une visite du bien",
     },
     {
-      value: 'reservation',
-      label: 'Réserver ce bien',
+      value: "reservation",
+      label: "Réserver ce bien",
       icon: Home,
-      description: 'Faire une demande de réservation',
+      description: "Faire une demande de réservation",
     },
   ];
 
@@ -65,19 +83,19 @@ export function PropertyRequestModal({
     const newErrors: Partial<Record<keyof RequestFormData, string>> = {};
 
     if (!formData.message.trim()) {
-      newErrors.message = 'Le message est requis';
+      newErrors.message = "Le message est requis";
     }
 
     if (!formData.phone || formData.phone.length < 8) {
-      newErrors.phone = 'Numéro de téléphone invalide';
+      newErrors.phone = "Numéro de téléphone invalide";
     }
 
-    if (!formData.email || !formData.email.includes('@')) {
-      newErrors.email = 'Email invalide';
+    if (!formData.email || !formData.email.includes("@")) {
+      newErrors.email = "Email invalide";
     }
 
-    if (formData.type === 'visite' && !formData.preferredDate) {
-      newErrors.preferredDate = 'Veuillez sélectionner une date';
+    if (formData.type === "visite" && !formData.preferredDate) {
+      newErrors.preferredDate = "Veuillez sélectionner une date";
     }
 
     setErrors(newErrors);
@@ -86,7 +104,7 @@ export function PropertyRequestModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       onSubmit(formData);
       onClose();
@@ -94,9 +112,9 @@ export function PropertyRequestModal({
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'XOF',
+    return new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "XOF",
       minimumFractionDigits: 0,
     }).format(price);
   };
@@ -104,7 +122,7 @@ export function PropertyRequestModal({
   const getMinDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    return tomorrow.toISOString().split("T")[0];
   };
 
   return (
@@ -139,8 +157,12 @@ export function PropertyRequestModal({
                 className="w-16 h-16 rounded object-cover"
               />
               <div className="flex-1">
-                <p className="font-medium text-slate-900 text-sm">{propertyTitle}</p>
-                <p className="text-sm text-primary-700 mt-1">{formatPrice(propertyPrice)}</p>
+                <p className="font-medium text-slate-900 text-sm">
+                  {propertyTitle}
+                </p>
+                <p className="text-sm text-primary-700 mt-1">
+                  {formatPrice(propertyPrice)}
+                </p>
               </div>
             </div>
           </div>
@@ -157,31 +179,39 @@ export function PropertyRequestModal({
                   <button
                     key={type.value}
                     type="button"
-                    onClick={() => setFormData({ ...formData, type: type.value })}
+                    onClick={() =>
+                      setFormData({ ...formData, type: type.value })
+                    }
                     className={`p-4 border-2 rounded-lg text-left transition-all ${
                       formData.type === type.value
-                        ? 'border-red-600 bg-red-50'
-                        : 'border-slate-200 hover:border-slate-300'
+                        ? "border-red-600 bg-red-50"
+                        : "border-slate-200 hover:border-slate-300"
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded ${
-                        formData.type === type.value
-                          ? 'bg-red-100'
-                          : 'bg-slate-100'
-                      }`}>
-                        <Icon className={`w-4 h-4 ${
+                      <div
+                        className={`p-2 rounded ${
                           formData.type === type.value
-                            ? 'text-red-600'
-                            : 'text-slate-600'
-                        }`} />
+                            ? "bg-red-100"
+                            : "bg-slate-100"
+                        }`}
+                      >
+                        <Icon
+                          className={`w-4 h-4 ${
+                            formData.type === type.value
+                              ? "text-red-600"
+                              : "text-slate-600"
+                          }`}
+                        />
                       </div>
                       <div>
-                        <p className={`text-sm font-medium ${
-                          formData.type === type.value
-                            ? 'text-red-900'
-                            : 'text-slate-900'
-                        }`}>
+                        <p
+                          className={`text-sm font-medium ${
+                            formData.type === type.value
+                              ? "text-red-900"
+                              : "text-slate-900"
+                          }`}
+                        >
                           {type.label}
                         </p>
                         <p className="text-xs text-slate-600 mt-1">
@@ -196,7 +226,7 @@ export function PropertyRequestModal({
           </div>
 
           {/* Preferred Date & Time (only for visits) */}
-          {formData.type === 'visite' && (
+          {formData.type === "visite" && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -207,15 +237,24 @@ export function PropertyRequestModal({
                   <input
                     type="date"
                     value={formData.preferredDate}
-                    onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        preferredDate: e.target.value,
+                      })
+                    }
                     min={getMinDate()}
                     className={`w-full pl-10 pr-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500 ${
-                      errors.preferredDate ? 'border-red-500' : 'border-slate-300'
+                      errors.preferredDate
+                        ? "border-red-500"
+                        : "border-slate-300"
                     }`}
                   />
                 </div>
                 {errors.preferredDate && (
-                  <p className="text-xs text-red-600 mt-1">{errors.preferredDate}</p>
+                  <p className="text-xs text-red-600 mt-1">
+                    {errors.preferredDate}
+                  </p>
                 )}
               </div>
 
@@ -227,7 +266,12 @@ export function PropertyRequestModal({
                   <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <select
                     value={formData.preferredTime}
-                    onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        preferredTime: e.target.value,
+                      })
+                    }
                     className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
                     <option value="">Sélectionner...</option>
@@ -253,19 +297,21 @@ export function PropertyRequestModal({
               <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
               <textarea
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 placeholder={
-                  formData.type === 'visite'
-                    ? 'Décrivez vos disponibilités ou questions...'
-                    : formData.type === 'reservation'
-                    ? 'Expliquez votre projet d\'acquisition...'
-                    : formData.type === 'financement'
-                    ? 'Précisez vos besoins de financement...'
-                    : 'Posez vos questions...'
+                  formData.type === "visite"
+                    ? "Décrivez vos disponibilités ou questions..."
+                    : formData.type === "reservation"
+                      ? "Expliquez votre projet d'acquisition..."
+                      : formData.type === "financement"
+                        ? "Précisez vos besoins de financement..."
+                        : "Posez vos questions..."
                 }
                 rows={5}
                 className={`w-full pl-10 pr-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500 resize-none ${
-                  errors.message ? 'border-red-500' : 'border-slate-300'
+                  errors.message ? "border-red-500" : "border-slate-300"
                 }`}
               />
             </div>
@@ -285,10 +331,12 @@ export function PropertyRequestModal({
                 <input
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
                   placeholder="+221 77 123 45 67"
                   className={`w-full pl-10 pr-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500 ${
-                    errors.phone ? 'border-red-500' : 'border-slate-300'
+                    errors.phone ? "border-red-500" : "border-slate-300"
                   }`}
                 />
               </div>
@@ -296,7 +344,9 @@ export function PropertyRequestModal({
                 <p className="text-xs text-red-600 mt-1">{errors.phone}</p>
               )}
               {userPhone && (
-                <p className="text-xs text-green-600 mt-1">✓ Pré-rempli avec vos informations</p>
+                <p className="text-xs text-green-600 mt-1">
+                  ✓ Pré-rempli avec vos informations
+                </p>
               )}
             </div>
 
@@ -309,10 +359,12 @@ export function PropertyRequestModal({
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="votre@email.com"
                   className={`w-full pl-10 pr-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500 ${
-                    errors.email ? 'border-red-500' : 'border-slate-300'
+                    errors.email ? "border-red-500" : "border-slate-300"
                   }`}
                 />
               </div>
@@ -320,7 +372,9 @@ export function PropertyRequestModal({
                 <p className="text-xs text-red-600 mt-1">{errors.email}</p>
               )}
               {userEmail && (
-                <p className="text-xs text-green-600 mt-1">✓ Pré-rempli avec vos informations</p>
+                <p className="text-xs text-green-600 mt-1">
+                  ✓ Pré-rempli avec vos informations
+                </p>
               )}
             </div>
           </div>
@@ -328,8 +382,9 @@ export function PropertyRequestModal({
           {/* Info Box */}
           <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-xs text-blue-800">
-              <strong>Note:</strong> Notre équipe vous contactera dans les plus brefs délais pour traiter votre demande.
-              Vous pouvez suivre l'état de votre demande dans l'onglet "Mes demandes".
+              <strong>Note:</strong> Notre équipe vous contactera dans les plus
+              brefs délais pour traiter votre demande. Vous pouvez suivre l'état
+              de votre demande dans l'onglet "Mes demandes".
             </p>
           </div>
 
@@ -344,6 +399,11 @@ export function PropertyRequestModal({
               Annuler
             </Button>
             <Button
+              style={{
+                backgroundColor: "#933096",
+                borderColor: "#933096",
+                color: "#ffffff",
+              }}
               type="submit"
               className="flex-1"
             >

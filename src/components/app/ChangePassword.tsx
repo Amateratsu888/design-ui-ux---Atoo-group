@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { Lock, Eye, EyeOff, Save } from 'lucide-react';
-import { Button } from '../Button';
+import React, { useState } from "react";
+import { Lock, Eye, EyeOff, Save } from "lucide-react";
+import { Button } from "../Button";
 
 interface ChangePasswordProps {
-  onPasswordChange: (currentPassword: string, newPassword: string) => Promise<void>;
+  onPasswordChange: (
+    currentPassword: string,
+    newPassword: string,
+  ) => Promise<void>;
 }
 
 export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
   const [formData, setFormData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
   const [showPasswords, setShowPasswords] = useState({
     current: false,
@@ -18,26 +21,28 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
     confirm: false,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [passwordStrength, setPasswordStrength] = useState<'weak' | 'medium' | 'strong'>('weak');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState<
+    "weak" | "medium" | "strong"
+  >("weak");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
 
     // Calculer la force du mot de passe
-    if (name === 'newPassword') {
+    if (name === "newPassword") {
       calculatePasswordStrength(value);
     }
   };
 
   const calculatePasswordStrength = (password: string) => {
     let strength = 0;
-    
+
     if (password.length >= 8) strength++;
     if (password.length >= 12) strength++;
     if (/[a-z]/.test(password)) strength++;
@@ -45,68 +50,72 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
     if (/[0-9]/.test(password)) strength++;
     if (/[!@#$%^&*]/.test(password)) strength++;
 
-    if (strength <= 2) setPasswordStrength('weak');
-    else if (strength <= 4) setPasswordStrength('medium');
-    else setPasswordStrength('strong');
+    if (strength <= 2) setPasswordStrength("weak");
+    else if (strength <= 4) setPasswordStrength("medium");
+    else setPasswordStrength("strong");
   };
 
   const getPasswordStrengthColor = () => {
     switch (passwordStrength) {
-      case 'weak':
-        return 'bg-red-500';
-      case 'medium':
-        return 'bg-yellow-500';
-      case 'strong':
-        return 'bg-green-500';
+      case "weak":
+        return "bg-red-500";
+      case "medium":
+        return "bg-yellow-500";
+      case "strong":
+        return "bg-green-500";
     }
   };
 
   const getPasswordStrengthLabel = () => {
     switch (passwordStrength) {
-      case 'weak':
-        return 'Faible';
-      case 'medium':
-        return 'Moyen';
-      case 'strong':
-        return 'Fort';
+      case "weak":
+        return "Faible";
+      case "medium":
+        return "Moyen";
+      case "strong":
+        return "Fort";
     }
   };
 
-  const togglePasswordVisibility = (field: 'current' | 'new' | 'confirm') => {
-    setShowPasswords(prev => ({
+  const togglePasswordVisibility = (field: "current" | "new" | "confirm") => {
+    setShowPasswords((prev) => ({
       ...prev,
-      [field]: !prev[field]
+      [field]: !prev[field],
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setErrorMessage('');
-    setSuccessMessage('');
+    setErrorMessage("");
+    setSuccessMessage("");
 
     try {
       // Validation
       if (!formData.currentPassword.trim()) {
-        throw new Error('Le mot de passe actuel est requis');
+        throw new Error("Le mot de passe actuel est requis");
       }
       if (!formData.newPassword.trim()) {
-        throw new Error('Le nouveau mot de passe est requis');
+        throw new Error("Le nouveau mot de passe est requis");
       }
       if (!formData.confirmPassword.trim()) {
-        throw new Error('La confirmation du mot de passe est requise');
+        throw new Error("La confirmation du mot de passe est requise");
       }
 
       if (formData.currentPassword === formData.newPassword) {
-        throw new Error('Le nouveau mot de passe doit être différent du mot de passe actuel');
+        throw new Error(
+          "Le nouveau mot de passe doit être différent du mot de passe actuel",
+        );
       }
 
       if (formData.newPassword !== formData.confirmPassword) {
-        throw new Error('Les mots de passe ne correspondent pas');
+        throw new Error("Les mots de passe ne correspondent pas");
       }
 
       if (formData.newPassword.length < 8) {
-        throw new Error('Le nouveau mot de passe doit contenir au moins 8 caractères');
+        throw new Error(
+          "Le nouveau mot de passe doit contenir au moins 8 caractères",
+        );
       }
 
       // Appel API
@@ -114,14 +123,16 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
 
       // Réinitialiser le formulaire
       setFormData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
       });
-      setSuccessMessage('Mot de passe mis à jour avec succès!');
-      setTimeout(() => setSuccessMessage(''), 3000);
+      setSuccessMessage("Mot de passe mis à jour avec succès!");
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Une erreur s\'est produite');
+      setErrorMessage(
+        error instanceof Error ? error.message : "Une erreur s'est produite",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +145,9 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
           <Lock className="w-6 h-6 text-primary-700" />
           <h2 className="text-2xl font-bold text-neutral-900">Sécurité</h2>
         </div>
-        <p className="text-neutral-600">Modifiez votre mot de passe régulièrement pour sécuriser votre compte</p>
+        <p className="text-neutral-600">
+          Modifiez votre mot de passe régulièrement pour sécuriser votre compte
+        </p>
       </div>
 
       {successMessage && (
@@ -152,13 +165,16 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Mot de passe actuel */}
         <div>
-          <label htmlFor="currentPassword" className="block text-neutral-700 font-semibold mb-2">
+          <label
+            htmlFor="currentPassword"
+            className="block text-neutral-700 font-semibold mb-2"
+          >
             Mot de passe actuel
           </label>
           <div className="relative">
             <input
               id="currentPassword"
-              type={showPasswords.current ? 'text' : 'password'}
+              type={showPasswords.current ? "text" : "password"}
               name="currentPassword"
               value={formData.currentPassword}
               onChange={handleChange}
@@ -167,7 +183,7 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
             />
             <button
               type="button"
-              onClick={() => togglePasswordVisibility('current')}
+              onClick={() => togglePasswordVisibility("current")}
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-600 hover:text-neutral-900"
             >
               {showPasswords.current ? (
@@ -182,13 +198,16 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
         <div className="border-t pt-6">
           {/* Nouveau mot de passe */}
           <div className="mb-6">
-            <label htmlFor="newPassword" className="block text-neutral-700 font-semibold mb-2">
+            <label
+              htmlFor="newPassword"
+              className="block text-neutral-700 font-semibold mb-2"
+            >
               Nouveau mot de passe
             </label>
             <div className="relative">
               <input
                 id="newPassword"
-                type={showPasswords.new ? 'text' : 'password'}
+                type={showPasswords.new ? "text" : "password"}
                 name="newPassword"
                 value={formData.newPassword}
                 onChange={handleChange}
@@ -197,7 +216,7 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
               />
               <button
                 type="button"
-                onClick={() => togglePasswordVisibility('new')}
+                onClick={() => togglePasswordVisibility("new")}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-600 hover:text-neutral-900"
               >
                 {showPasswords.new ? (
@@ -212,14 +231,23 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
             {formData.newPassword && (
               <div className="mt-3">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm text-neutral-600">Force du mot de passe:</p>
-                  <p className="text-sm font-semibold text-neutral-700">{getPasswordStrengthLabel()}</p>
+                  <p className="text-sm text-neutral-600">
+                    Force du mot de passe:
+                  </p>
+                  <p className="text-sm font-semibold text-neutral-700">
+                    {getPasswordStrengthLabel()}
+                  </p>
                 </div>
                 <div className="h-2 bg-neutral-200 rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className={`h-full ${getPasswordStrengthColor()} transition-all duration-300`}
                     style={{
-                      width: passwordStrength === 'weak' ? '33%' : passwordStrength === 'medium' ? '66%' : '100%'
+                      width:
+                        passwordStrength === "weak"
+                          ? "33%"
+                          : passwordStrength === "medium"
+                            ? "66%"
+                            : "100%",
                     }}
                   />
                 </div>
@@ -228,22 +256,50 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
 
             {/* Critères */}
             <div className="mt-3 p-3 bg-neutral-50 rounded-lg">
-              <p className="text-xs font-semibold text-neutral-700 mb-2">Critères du mot de passe:</p>
+              <p className="text-xs font-semibold text-neutral-700 mb-2">
+                Critères du mot de passe:
+              </p>
               <ul className="text-xs text-neutral-600 space-y-1">
-                <li className={formData.newPassword.length >= 8 ? 'text-green-600' : ''}>
-                  {formData.newPassword.length >= 8 ? '✓' : '○'} Au moins 8 caractères
+                <li
+                  className={
+                    formData.newPassword.length >= 8 ? "text-green-600" : ""
+                  }
+                >
+                  {formData.newPassword.length >= 8 ? "✓" : "○"} Au moins 8
+                  caractères
                 </li>
-                <li className={/[a-z]/.test(formData.newPassword) ? 'text-green-600' : ''}>
-                  {/[a-z]/.test(formData.newPassword) ? '✓' : '○'} Lettres minuscules
+                <li
+                  className={
+                    /[a-z]/.test(formData.newPassword) ? "text-green-600" : ""
+                  }
+                >
+                  {/[a-z]/.test(formData.newPassword) ? "✓" : "○"} Lettres
+                  minuscules
                 </li>
-                <li className={/[A-Z]/.test(formData.newPassword) ? 'text-green-600' : ''}>
-                  {/[A-Z]/.test(formData.newPassword) ? '✓' : '○'} Lettres majuscules
+                <li
+                  className={
+                    /[A-Z]/.test(formData.newPassword) ? "text-green-600" : ""
+                  }
+                >
+                  {/[A-Z]/.test(formData.newPassword) ? "✓" : "○"} Lettres
+                  majuscules
                 </li>
-                <li className={/[0-9]/.test(formData.newPassword) ? 'text-green-600' : ''}>
-                  {/[0-9]/.test(formData.newPassword) ? '✓' : '○'} Chiffres
+                <li
+                  className={
+                    /[0-9]/.test(formData.newPassword) ? "text-green-600" : ""
+                  }
+                >
+                  {/[0-9]/.test(formData.newPassword) ? "✓" : "○"} Chiffres
                 </li>
-                <li className={/[!@#$%^&*]/.test(formData.newPassword) ? 'text-green-600' : ''}>
-                  {/[!@#$%^&*]/.test(formData.newPassword) ? '✓' : '○'} Caractères spéciaux (!@#$%^&*)
+                <li
+                  className={
+                    /[!@#$%^&*]/.test(formData.newPassword)
+                      ? "text-green-600"
+                      : ""
+                  }
+                >
+                  {/[!@#$%^&*]/.test(formData.newPassword) ? "✓" : "○"}{" "}
+                  Caractères spéciaux (!@#$%^&*)
                 </li>
               </ul>
             </div>
@@ -251,13 +307,16 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
 
           {/* Confirmer le mot de passe */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-neutral-700 font-semibold mb-2">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-neutral-700 font-semibold mb-2"
+            >
               Confirmer le nouveau mot de passe
             </label>
             <div className="relative">
               <input
                 id="confirmPassword"
-                type={showPasswords.confirm ? 'text' : 'password'}
+                type={showPasswords.confirm ? "text" : "password"}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -266,7 +325,7 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
               />
               <button
                 type="button"
-                onClick={() => togglePasswordVisibility('confirm')}
+                onClick={() => togglePasswordVisibility("confirm")}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-600 hover:text-neutral-900"
               >
                 {showPasswords.confirm ? (
@@ -276,24 +335,35 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
                 )}
               </button>
             </div>
-            {formData.confirmPassword && formData.newPassword !== formData.confirmPassword && (
-              <p className="text-red-600 text-sm mt-2">Les mots de passe ne correspondent pas</p>
-            )}
-            {formData.confirmPassword && formData.newPassword === formData.confirmPassword && (
-              <p className="text-green-600 text-sm mt-2">✓ Les mots de passe correspondent</p>
-            )}
+            {formData.confirmPassword &&
+              formData.newPassword !== formData.confirmPassword && (
+                <p className="text-red-600 text-sm mt-2">
+                  Les mots de passe ne correspondent pas
+                </p>
+              )}
+            {formData.confirmPassword &&
+              formData.newPassword === formData.confirmPassword && (
+                <p className="text-green-600 text-sm mt-2">
+                  ✓ Les mots de passe correspondent
+                </p>
+              )}
           </div>
         </div>
 
         {/* Submit Button */}
         <div className="flex gap-4 pt-6 border-t">
           <Button
+            style={{
+              backgroundColor: "#933096",
+              borderColor: "#933096",
+              color: "#ffffff",
+            }}
             type="submit"
             disabled={isLoading}
             className="flex items-center gap-2"
           >
             <Save className="w-4 h-4" />
-            {isLoading ? 'Mise à jour...' : 'Mettre à jour le mot de passe'}
+            {isLoading ? "Mise à jour..." : "Mettre à jour le mot de passe"}
           </Button>
         </div>
       </form>
@@ -301,7 +371,9 @@ export function ChangePassword({ onPasswordChange }: ChangePasswordProps) {
       {/* Conseil de sécurité */}
       <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <p className="text-sm text-blue-900">
-          <strong>Conseil de sécurité:</strong> Ne partagez jamais votre mot de passe. Nous ne vous demanderons jamais votre mot de passe par email ou téléphone.
+          <strong>Conseil de sécurité:</strong> Ne partagez jamais votre mot de
+          passe. Nous ne vous demanderons jamais votre mot de passe par email ou
+          téléphone.
         </p>
       </div>
     </div>
