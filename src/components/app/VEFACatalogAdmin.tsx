@@ -21,7 +21,7 @@ const initialVEFAProjects: VEFAProject[] = [
     spentBudget: 2500000000,
     ownerName: 'Atoo Groupbilier',
     developerName: 'Développement Sénégal',
-    contactEmail: 'vefa001@barakaimmo.com',
+    contactEmail: 'vefa001@Atooimmo.com',
     contactPhone: '+221 77 123 45 67',
     totalUnits: 50,
     milestones: [
@@ -268,31 +268,28 @@ export function VEFACatalogAdmin({ onNavigate }: VEFACatalogAdminProps) {
         <div className="flex gap-8">
           <button
             onClick={() => setActiveTab('info')}
-            className={`py-4 px-2 font-semibold border-b-2 transition ${
-              activeTab === 'info'
+            className={`py-4 px-2 font-semibold border-b-2 transition ${activeTab === 'info'
                 ? 'border-primary-700 text-primary-700'
                 : 'border-transparent text-neutral-600 hover:text-neutral-900'
-            }`}
+              }`}
           >
             Informations du VEFA
           </button>
           <button
             onClick={() => setActiveTab('milestones')}
-            className={`py-4 px-2 font-semibold border-b-2 transition ${
-              activeTab === 'milestones'
+            className={`py-4 px-2 font-semibold border-b-2 transition ${activeTab === 'milestones'
                 ? 'border-primary-700 text-primary-700'
                 : 'border-transparent text-neutral-600 hover:text-neutral-900'
-            }`}
+              }`}
           >
             Jalons et Paiements
           </button>
           <button
             onClick={() => setActiveTab('documents')}
-            className={`py-4 px-2 font-semibold border-b-2 transition ${
-              activeTab === 'documents'
+            className={`py-4 px-2 font-semibold border-b-2 transition ${activeTab === 'documents'
                 ? 'border-primary-700 text-primary-700'
                 : 'border-transparent text-neutral-600 hover:text-neutral-900'
-            }`}
+              }`}
           >
             Documents
           </button>
@@ -482,11 +479,10 @@ export function VEFACatalogAdmin({ onNavigate }: VEFACatalogAdminProps) {
                         <td className="px-4 py-3 font-semibold text-neutral-900">{formatCurrency(payment.amount)}</td>
                         <td className="px-4 py-3 text-neutral-700">{payment.description}</td>
                         <td className="px-4 py-3">
-                          <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${
-                            payment.status === 'payé' ? 'bg-green-100 text-green-800 border-green-300' :
-                            payment.status === 'en-attente' ? 'bg-amber-100 text-amber-800 border-amber-300' :
-                            'bg-red-100 text-red-800 border-red-300'
-                          }`}>
+                          <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${payment.status === 'payé' ? 'bg-green-100 text-green-800 border-green-300' :
+                              payment.status === 'en-attente' ? 'bg-amber-100 text-amber-800 border-amber-300' :
+                                'bg-red-100 text-red-800 border-red-300'
+                            }`}>
                             {payment.status}
                           </span>
                         </td>

@@ -8,7 +8,7 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
-import logo from "@/assets/atoo-logo.png";
+import logo from "@/assets/logo_atoo_group.png";
 
 interface FooterProps {
   onNavigate?: (page: string) => void;
@@ -39,7 +39,7 @@ export function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button
                   onClick={() => onNavigate?.("properties")}
-                  className="hover:text-primary-400 transition-colors text-left"
+                  className="hover:text-primary-700 transition-colors text-left"
                 >
                   Biens
                 </button>
@@ -47,7 +47,7 @@ export function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button
                   onClick={() => onNavigate?.("about")}
-                  className="hover:text-primary-400 transition-colors text-left"
+                  className="hover:text-primary-700 transition-colors text-left"
                 >
                   À propos
                 </button>
@@ -55,7 +55,7 @@ export function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button
                   onClick={() => onNavigate?.("contact")}
-                  className="hover:text-primary-400 transition-colors text-left"
+                  className="hover:text-primary-700 transition-colors text-left"
                 >
                   Contact
                 </button>

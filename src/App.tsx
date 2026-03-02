@@ -37,12 +37,13 @@ import { AdminSettingsPage } from './components/app/AdminSettingsPage';
 import { Button } from './components/Button';
 import { UserRole } from './types';
 import { currentUser } from './data/mockData';
-import { PropertyType } from './types/index';import logo from '@/assets/logo.png';
-type PageType = 
-  | 'home' 
-  | 'properties' 
-  | 'property-detail' 
-  | 'how-it-works' 
+import { PropertyType } from './types/index';
+import logo from '@/assets/logo_atoo_group.png';
+type PageType =
+  | 'home'
+  | 'properties'
+  | 'property-detail'
+  | 'how-it-works'
   | 'contact'
   | 'login'
   | 'about'
@@ -121,13 +122,13 @@ export default function App() {
       case 'technicien':
         return {
           name: 'Bienta Fall',
-          email: 'bienta.fall@barakaimmo.com',
+          email: 'bienta.fall@Atooimmo.com',
           phone: '+221 76 345 67 89',
         };
       case 'admin':
         return {
           name: 'Mme Niang',
-          email: 'admin@barakaimmo.com',
+          email: 'admin@Atooimmo.com',
           phone: '+221 77 999 00 00',
         };
       default:
@@ -155,14 +156,14 @@ export default function App() {
   const handleLogin = (role: UserRole) => {
     setUserRole(role);
     setIsLoggedIn(true);
-    
+
     // Vérifier si c'est la première connexion pour ce client
     const userName = getUserName(role);
     if ((role === 'client' || role === 'vip') && !hasSeenOnboarding[userName]) {
       setShowOnboarding(false);
       setIsOnboardingMode(false);
     }
-    
+
     if (role === 'admin') {
       setCurrentPage('dashboard');
     } else if (role === 'technicien') {
@@ -202,28 +203,28 @@ export default function App() {
             Choisissez votre rôle pour accéder à l'espace correspondant
           </p>
           <div className="space-y-3">
-            <Button 
-              className="w-full bg-primary-700 hover:bg-primary-800 text-white" 
+            <Button
+              className="w-full bg-primary-700 hover:bg-primary-800 text-white"
               onClick={() => handleLogin('vip')}
             >
               Fatou Cissé (Client VIP)
             </Button>
-            <Button 
-              className="w-full" 
+            <Button
+              className="w-full"
               variant="outline"
               onClick={() => handleLogin('client')}
             >
               Amadou Diallo (Client)
             </Button>
-            <Button 
-              className="w-full" 
+            <Button
+              className="w-full"
               variant="outline"
               onClick={() => handleLogin('technicien')}
             >
               Bienta Fall (Technicien)
             </Button>
-            <Button 
-              className="w-full text-black" 
+            <Button
+              className="w-full text-black"
               variant="outline"
               onClick={() => handleLogin('admin')}
             >
@@ -252,17 +253,17 @@ export default function App() {
       content = <MyPropertiesPage onNavigate={handleNavigate} isOnboardingMode={isOnboardingMode} />;
     } else if (currentPage === 'catalog') {
       const userInfo = getUserInfo(userRole);
-      content = <ClientCatalogPage 
-        onNavigate={handleNavigate} 
-        isVIP={userRole === 'vip'} 
+      content = <ClientCatalogPage
+        onNavigate={handleNavigate}
+        isVIP={userRole === 'vip'}
         userEmail={userInfo.email}
         userPhone={userInfo.phone}
         userName={userInfo.name}
       />;
     } else if (currentPage === 'property-detail-client') {
       const userInfo = getUserInfo(userRole);
-      content = <PropertyDetailClient 
-        propertyId={selectedPropertyId} 
+      content = <PropertyDetailClient
+        propertyId={selectedPropertyId}
         onNavigate={handleNavigate}
         isVIP={userRole === 'vip'}
         userEmail={userInfo.email}
@@ -285,7 +286,7 @@ export default function App() {
       content = <BookCallPage />;
     } else if (currentPage === 'user-settings') {
       const userInfo = getUserInfo(userRole);
-      content = <UserSettingsPage 
+      content = <UserSettingsPage
         user={{
           id: 'current-user',
           ...userInfo,
@@ -344,9 +345,9 @@ export default function App() {
       >
         {content}
         {showOnboarding && (
-          <OnboardingTour 
-            role={userRole} 
-            onComplete={handleOnboardingComplete} 
+          <OnboardingTour
+            role={userRole}
+            onComplete={handleOnboardingComplete}
             onStepChange={handleOnboardingStepChange}
             currentStep={onboardingStep}
             isOnboardingMode={isOnboardingMode}

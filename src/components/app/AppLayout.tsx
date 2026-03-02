@@ -25,7 +25,7 @@ import {
   User,
 } from "lucide-react";
 import { UserRole } from "../../types";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo_atoo_group.png";
 import { SupportButton } from "./SupportButton";
 import { Button } from "../Button";
 
@@ -166,13 +166,12 @@ export function AppLayout({
                 <button
                   id={`nav-${item.id}`}
                   onClick={() => !item.disabled && onNavigate(item.id)}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors relative ${
-                    item.disabled
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors relative ${item.disabled
                       ? "opacity-50 cursor-not-allowed text-neutral-400"
                       : currentPage === item.id
                         ? "bg-primary-700 text-white"
                         : "text-neutral-700 hover:bg-neutral-100"
-                  }`}
+                    }`}
                   disabled={item.disabled}
                 >
                   <div className="flex items-center gap-3 min-w-0">
@@ -326,13 +325,12 @@ export function AppLayout({
               key={item.id}
               id={`nav-mobile-${item.id}`}
               onClick={() => !item.disabled && onNavigate(item.id)}
-              className={`flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-lg transition-colors min-w-0 flex-1 ${
-                item.disabled
+              className={`flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-lg transition-colors min-w-0 flex-1 ${item.disabled
                   ? "opacity-50 cursor-not-allowed text-neutral-400"
                   : currentPage === item.id
                     ? "bg-primary-700 text-white"
                     : "text-neutral-600"
-              }`}
+                }`}
               disabled={item.disabled}
             >
               <div className="relative">
@@ -461,33 +459,30 @@ export function AppLayout({
                 <div className="grid grid-cols-3 gap-3">
                   <button
                     onClick={() => setSelectedPaymentMethod("card")}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
-                      selectedPaymentMethod === "card"
+                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${selectedPaymentMethod === "card"
                         ? "border-amber-600 bg-amber-50 text-amber-700"
                         : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
-                    }`}
+                      }`}
                   >
                     <CreditCard className="w-6 h-6" />
                     <span className="text-sm text-center">Carte bancaire</span>
                   </button>
                   <button
                     onClick={() => setSelectedPaymentMethod("bank")}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
-                      selectedPaymentMethod === "bank"
+                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${selectedPaymentMethod === "bank"
                         ? "border-amber-600 bg-amber-50 text-amber-700"
                         : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
-                    }`}
+                      }`}
                   >
                     <Building2 className="w-6 h-6" />
                     <span className="text-sm text-center">Virement</span>
                   </button>
                   <button
                     onClick={() => setSelectedPaymentMethod("mobile")}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
-                      selectedPaymentMethod === "mobile"
+                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${selectedPaymentMethod === "mobile"
                         ? "border-amber-600 bg-amber-50 text-amber-700"
                         : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
-                    }`}
+                      }`}
                   >
                     <Phone className="w-6 h-6" />
                     <span className="text-sm text-center">Mobile Money</span>
@@ -526,11 +521,11 @@ export function AppLayout({
                   );
                   alert(
                     "Paiement VIP initié avec " +
-                      (selectedPaymentMethod === "card"
-                        ? "Carte bancaire"
-                        : selectedPaymentMethod === "bank"
-                          ? "Virement"
-                          : "Mobile Money"),
+                    (selectedPaymentMethod === "card"
+                      ? "Carte bancaire"
+                      : selectedPaymentMethod === "bank"
+                        ? "Virement"
+                        : "Mobile Money"),
                   );
                   setShowVIPModal(false);
                 }}

@@ -1489,7 +1489,7 @@ export const bankAccounts: BankAccount[] = [
   {
     id: 'ba-3',
     bankName: 'CBAO Sénégal',
-    accountHolderName: 'BARAKA REAL ESTATE',
+    accountHolderName: 'Atoo REAL ESTATE',
     accountNumber: '5555666677',
     iban: 'SN06CBAO0001005555666677EF',
     swift: 'CBAOSNDS',
@@ -1502,7 +1502,7 @@ export const bankAccounts: BankAccount[] = [
   {
     id: 'ba-4',
     bankName: 'Ecobank Sénégal',
-    accountHolderName: 'BARAKA PROPERTIES',
+    accountHolderName: 'Atoo PROPERTIES',
     accountNumber: '1111222233',
     iban: 'SN06ECOS0001001111222233GH',
     swift: 'ECOCSN2D',

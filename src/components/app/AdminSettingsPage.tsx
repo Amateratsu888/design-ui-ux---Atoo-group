@@ -231,15 +231,15 @@ export function AdminSettingsPage({ onNavigate }: AdminSettingsPageProps) {
                         style={
                           savedSection === "standard-access"
                             ? {
-                                backgroundColor: "#16a34a",
-                                borderColor: "#16a34a",
-                                color: "#fff",
-                              }
+                              backgroundColor: "#16a34a",
+                              borderColor: "#16a34a",
+                              color: "#fff",
+                            }
                             : {
-                                backgroundColor: PURPLE,
-                                borderColor: PURPLE,
-                                color: "#fff",
-                              }
+                              backgroundColor: PURPLE,
+                              borderColor: PURPLE,
+                              color: "#fff",
+                            }
                         }
                         onClick={() => handleSaveSection("standard-access")}
                         disabled={savingSection === "standard-access"}
@@ -305,15 +305,15 @@ export function AdminSettingsPage({ onNavigate }: AdminSettingsPageProps) {
                         style={
                           savedSection === "vip-access"
                             ? {
-                                backgroundColor: "#16a34a",
-                                borderColor: "#16a34a",
-                                color: "#fff",
-                              }
+                              backgroundColor: "#16a34a",
+                              borderColor: "#16a34a",
+                              color: "#fff",
+                            }
                             : {
-                                backgroundColor: PURPLE,
-                                borderColor: PURPLE,
-                                color: "#fff",
-                              }
+                              backgroundColor: PURPLE,
+                              borderColor: PURPLE,
+                              color: "#fff",
+                            }
                         }
                         onClick={() => handleSaveSection("vip-access")}
                         disabled={savingSection === "vip-access"}
@@ -424,15 +424,15 @@ export function AdminSettingsPage({ onNavigate }: AdminSettingsPageProps) {
                     style={
                       savedSection === "appointments"
                         ? {
-                            backgroundColor: "#16a34a",
-                            borderColor: "#16a34a",
-                            color: "#fff",
-                          }
+                          backgroundColor: "#16a34a",
+                          borderColor: "#16a34a",
+                          color: "#fff",
+                        }
                         : {
-                            backgroundColor: PURPLE,
-                            borderColor: PURPLE,
-                            color: "#fff",
-                          }
+                          backgroundColor: PURPLE,
+                          borderColor: PURPLE,
+                          color: "#fff",
+                        }
                     }
                     onClick={() => handleSaveSection("appointments")}
                     disabled={savingSection === "appointments"}
@@ -509,9 +509,9 @@ export function AdminSettingsPage({ onNavigate }: AdminSettingsPageProps) {
                     style={
                       account.isActive
                         ? {
-                            borderColor: PURPLE_BORDER,
-                            backgroundColor: PURPLE_LIGHT,
-                          }
+                          borderColor: PURPLE_BORDER,
+                          backgroundColor: PURPLE_LIGHT,
+                        }
                         : {}
                     }
                   >
@@ -616,7 +616,7 @@ export function AdminSettingsPage({ onNavigate }: AdminSettingsPageProps) {
                       },
                       {
                         label: "Email de contact",
-                        defaultValue: "contact@baraka-immo.sn",
+                        defaultValue: "contact@Atoo-immo.sn",
                         type: "email",
                       },
                       {
@@ -652,7 +652,7 @@ export function AdminSettingsPage({ onNavigate }: AdminSettingsPageProps) {
                       },
                       {
                         label: "Lien calendrier (Calendly, etc.)",
-                        defaultValue: "https://calendly.com/baraka-immo",
+                        defaultValue: "https://calendly.com/Atoo-immo",
                         type: "url",
                       },
                       {

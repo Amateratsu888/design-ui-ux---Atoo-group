@@ -207,13 +207,13 @@ export interface Contract {
 
 // ============ VIP SERVICES & MILESTONES ============
 
-export type VIPServiceType = 
-  | 'verification-hors-baraka'
+export type VIPServiceType =
+  | 'verification-hors-Atoo'
   | 'identification-bien'
   | 'plan-cadastral-nicad'
-  | 'achat-hors-baraka';
+  | 'achat-hors-Atoo';
 
-export type ServiceRequestStatus = 
+export type ServiceRequestStatus =
   | 'en-attente-validation'
   | 'acceptee'
   | 'refusee'
@@ -221,7 +221,7 @@ export type ServiceRequestStatus =
   | 'terminee'
   | 'suspendue';
 
-export type MilestoneStatus = 
+export type MilestoneStatus =
   | 'en-cours'
   | 'terminee'
   | 'suspendue'
@@ -323,7 +323,7 @@ export interface ServiceRequest {
 
 export type AppointmentType = 'online' | 'in-person';
 
-export type AppointmentStatus = 
+export type AppointmentStatus =
   | 'pending-payment'   // En attente de paiement
   | 'pending'           // Payé, en attente de confirmation admin
   | 'confirmed'         // Confirmé par l'admin

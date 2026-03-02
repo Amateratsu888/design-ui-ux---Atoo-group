@@ -157,7 +157,7 @@ const ServiceFormModal = ({
     service || {
       name: "",
       description: "",
-      type: "verification-hors-baraka",
+      type: "verification-hors-Atoo",
       icon: "search-check",
       zonePrices: interventionZones.map((z) => ({
         zoneId: z.id,
@@ -174,7 +174,7 @@ const ServiceFormModal = ({
       setFormData({
         name: "",
         description: "",
-        type: "verification-hors-baraka",
+        type: "verification-hors-Atoo",
         icon: "search-check",
         zonePrices: interventionZones.map((z) => ({
           zoneId: z.id,
@@ -246,7 +246,7 @@ const ServiceFormModal = ({
                 setFormData({ ...formData, name: e.target.value })
               }
               required
-              placeholder="Ex: Vérification Hors Baraka"
+              placeholder="Ex: Vérification Hors Atoo"
               className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
           </div>
@@ -516,15 +516,15 @@ const RequestValidationModal = ({
               style={
                 action === "validate"
                   ? {
-                      backgroundColor: PURPLE,
-                      borderColor: PURPLE,
-                      color: "#fff",
-                    }
+                    backgroundColor: PURPLE,
+                    borderColor: PURPLE,
+                    color: "#fff",
+                  }
                   : {
-                      backgroundColor: "#dc2626",
-                      borderColor: "#dc2626",
-                      color: "#fff",
-                    }
+                    backgroundColor: "#dc2626",
+                    borderColor: "#dc2626",
+                    color: "#fff",
+                  }
               }
               disabled={
                 action === "validate" ? !technicianId : !rejectionReason
@@ -825,9 +825,9 @@ export function VIPServicesAdmin({ onNavigate }: VIPServicesAdminProps) {
         p.id !== projectId
           ? p
           : {
-              ...p,
-              milestones: p.milestones.filter((m) => m.id !== milestoneId),
-            },
+            ...p,
+            milestones: p.milestones.filter((m) => m.id !== milestoneId),
+          },
       ),
     );
   };
