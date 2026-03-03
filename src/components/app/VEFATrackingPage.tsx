@@ -153,7 +153,7 @@ export function VEFATrackingPage({ onNavigate }: VEFATrackingPageProps) {
       ownerName: "Atoo Groupbilier",
       developerName: "Construction Sénégal",
       contactPhone: "+221 77 123 45 67",
-      contactEmail: "contact@barakaimmo.com",
+      contactEmail: "contact@Atooimmo.com",
       totalUnits: 1,
       milestones: [
         {
@@ -268,7 +268,7 @@ export function VEFATrackingPage({ onNavigate }: VEFATrackingPageProps) {
       ownerName: "Atoo Groupbilier",
       developerName: "Premium Build",
       contactPhone: "+221 77 888 99 00",
-      contactEmail: "contact@barakaimmo.com",
+      contactEmail: "contact@Atooimmo.com",
       totalUnits: 1,
       milestones: [
         {
@@ -894,48 +894,48 @@ export function VEFATrackingPage({ onNavigate }: VEFATrackingPageProps) {
         {(project.developerName ||
           project.contactPhone ||
           project.contactEmail) && (
-          <Card className="p-5">
-            <h4 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <User className="w-5 h-5" style={{ color: BRAND }} />
-              Informations de contact
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {project.developerName && (
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                  <Building2 className="w-5 h-5 text-slate-500" />
-                  <div>
-                    <p className="text-xs text-slate-500">Développeur</p>
-                    <p className="font-medium text-slate-900">
-                      {project.developerName}
-                    </p>
+            <Card className="p-5">
+              <h4 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                <User className="w-5 h-5" style={{ color: BRAND }} />
+                Informations de contact
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {project.developerName && (
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <Building2 className="w-5 h-5 text-slate-500" />
+                    <div>
+                      <p className="text-xs text-slate-500">Développeur</p>
+                      <p className="font-medium text-slate-900">
+                        {project.developerName}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
-              {project.contactPhone && (
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                  <Phone className="w-5 h-5 text-slate-500" />
-                  <div>
-                    <p className="text-xs text-slate-500">Téléphone</p>
-                    <p className="font-medium text-slate-900">
-                      {project.contactPhone}
-                    </p>
+                )}
+                {project.contactPhone && (
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <Phone className="w-5 h-5 text-slate-500" />
+                    <div>
+                      <p className="text-xs text-slate-500">Téléphone</p>
+                      <p className="font-medium text-slate-900">
+                        {project.contactPhone}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
-              {project.contactEmail && (
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                  <Mail className="w-5 h-5 text-slate-500" />
-                  <div>
-                    <p className="text-xs text-slate-500">Email</p>
-                    <p className="font-medium text-slate-900">
-                      {project.contactEmail}
-                    </p>
+                )}
+                {project.contactEmail && (
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                    <Mail className="w-5 h-5 text-slate-500" />
+                    <div>
+                      <p className="text-xs text-slate-500">Email</p>
+                      <p className="font-medium text-slate-900">
+                        {project.contactEmail}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          </Card>
-        )}
+                )}
+              </div>
+            </Card>
+          )}
 
         {/* Progress Overview */}
         <Card className="p-5">
@@ -1455,11 +1455,10 @@ export function VEFATrackingPage({ onNavigate }: VEFATrackingPageProps) {
                     <div className="space-y-3">
                       <label
                         htmlFor="payment-proof"
-                        className={`flex flex-col items-center justify-center w-full h-24 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
-                          paymentProofFile
+                        className={`flex flex-col items-center justify-center w-full h-24 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${paymentProofFile
                             ? "border-green-400 bg-green-50"
                             : "border-slate-300 bg-white hover:bg-slate-100"
-                        }`}
+                          }`}
                       >
                         {paymentProofFile ? (
                           <div className="flex items-center gap-2 text-green-700">

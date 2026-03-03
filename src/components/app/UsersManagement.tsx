@@ -36,7 +36,7 @@ function CreateUserModal({ isOpen, onClose, onCreateUser }: CreateUserModalProps
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl w-full max-w-md p-6 m-4">
         <h3 className="mb-4">Créer un nouvel utilisateur</h3>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm mb-2 text-neutral-700">Nom complet</label>
@@ -88,17 +88,17 @@ function CreateUserModal({ isOpen, onClose, onCreateUser }: CreateUserModalProps
           </div>
 
           <div className="flex gap-3 pt-2">
-            <Button 
-              type="button" 
-              variant="outline" 
+            <Button
+              type="button"
+              variant="outline"
               className="flex-1"
               onClick={onClose}
             >
               Annuler
             </Button>
-            <Button 
-              type="submit" 
-              variant="primary" 
+            <Button
+              type="submit"
+              variant="primary"
               className="flex-1"
             >
               Créer
@@ -116,7 +116,7 @@ export function UsersManagement() {
     {
       id: 't1',
       name: 'Bienta Fall',
-      email: 'bienta.fall@barakaimmo.com',
+      email: 'bienta.fall@Atooimmo.com',
       phone: '+221 77 999 88 77',
       role: 'technicien',
       isVip: false,
@@ -125,7 +125,7 @@ export function UsersManagement() {
     {
       id: 't2',
       name: 'Moussa Ndiaye',
-      email: 'moussa.ndiaye@barakaimmo.com',
+      email: 'moussa.ndiaye@Atooimmo.com',
       phone: '+221 78 111 22 33',
       role: 'technicien',
       isVip: false,
@@ -158,7 +158,7 @@ export function UsersManagement() {
 
     const isCurrentlyVip = user.role === 'vip';
     const action = isCurrentlyVip ? 'retirer le statut VIP' : 'promouvoir au statut VIP';
-    
+
     if (confirm(`Voulez-vous ${action} pour ${user.name} ?`)) {
       setUsers(users.map(u => {
         if (u.id === userId) {
@@ -170,11 +170,11 @@ export function UsersManagement() {
         }
         return u;
       }));
-      
-      const message = isCurrentlyVip 
+
+      const message = isCurrentlyVip
         ? `${user.name} a été rétrogradé(e) au statut client standard`
         : `${user.name} a été promu(e) au statut VIP`;
-      
+
       // Simuler une notification
       alert(message);
     }
@@ -182,11 +182,11 @@ export function UsersManagement() {
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          user.phone.includes(searchQuery);
-    
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.phone.includes(searchQuery);
+
     const matchesRole = roleFilter === 'all' || user.role === roleFilter;
-    
+
     return matchesSearch && matchesRole;
   });
 
@@ -278,8 +278,8 @@ export function UsersManagement() {
               <option value="technicien">Techniciens</option>
             </select>
 
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               onClick={() => setIsCreateModalOpen(true)}
               className="whitespace-nowrap"
             >
@@ -314,8 +314,8 @@ export function UsersManagement() {
                   <tr key={user.id} className="hover:bg-neutral-50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <img 
-                          src={user.avatar} 
+                        <img
+                          src={user.avatar}
                           alt={user.name}
                           className="w-10 h-10 rounded-full"
                         />
@@ -387,7 +387,7 @@ export function UsersManagement() {
       </div>
 
       {/* Create User Modal */}
-      <CreateUserModal 
+      <CreateUserModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onCreateUser={handleCreateUser}

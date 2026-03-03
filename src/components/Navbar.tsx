@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Home, Building2, User, Phone, Menu, X } from "lucide-react";
 import { Button } from "./Button";
 
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo_atoo_group.png";
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
@@ -48,9 +48,8 @@ export function Navbar({
   return (
     <>
       <nav
-        className={`${isTransparent ? "fixed" : "sticky"} top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isTransparent ? "bg-transparent" : "bg-primary shadow-md"
-        }`}
+        className={`${isTransparent ? "fixed" : "sticky"} top-0 left-0 right-0 z-50 transition-all duration-300 ${isTransparent ? "bg-transparent" : "bg-primary shadow-md"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -101,11 +100,10 @@ export function Navbar({
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 rounded-lg transition-colors ${
-                isTransparent
+              className={`md:hidden p-2 rounded-lg transition-colors ${isTransparent
                   ? "text-white hover:bg-primary/10"
                   : "text-white hover:bg-primary/20"
-              }`}
+                }`}
               aria-label="Menu"
             >
               {isMobileMenuOpen ? (
@@ -128,9 +126,8 @@ export function Navbar({
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed top-16 left-0 right-0 bottom-0 bg-primary z-50 transform transition-transform duration-300 ${
-          isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
-        }`}
+        className={`md:hidden fixed top-16 left-0 right-0 bottom-0 bg-primary z-50 transform transition-transform duration-300 ${isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+          }`}
       >
         <div className="h-full overflow-y-auto">
           <nav className="py-6 px-4">
@@ -139,11 +136,10 @@ export function Navbar({
                 <button
                   key={item.id}
                   onClick={() => handleMenuItemClick(item.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${
-                    currentPage === item.id
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${currentPage === item.id
                       ? "bg-[#8DC63F] text-white" // Fond violet, texte blanc
                       : "text-white hover:bg-secondary/80"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -151,11 +147,10 @@ export function Navbar({
 
               <button
                 onClick={() => handleMenuItemClick("login")}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${
-                  currentPage === "login"
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${currentPage === "login"
                     ? "bg-[#8DC63F] text-white"
                     : "text-white hover:bg-secondary/80"
-                }`}
+                  }`}
               >
                 <User className="w-4 h-4" />
                 Espace client

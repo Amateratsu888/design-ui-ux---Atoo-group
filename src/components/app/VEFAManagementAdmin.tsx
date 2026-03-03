@@ -48,7 +48,7 @@ const initialVEFAProjects: VEFAProject[] = [
     spentBudget: 2500000000,
     ownerName: "Atoo Groupbilier",
     developerName: "Développement Sénégal",
-    contactEmail: "vefa001@barakaimmo.com",
+    contactEmail: "vefa001@Atooimmo.com",
     contactPhone: "+221 77 123 45 67",
     totalUnits: 50,
     tags: ["premium", "residential"],
@@ -145,7 +145,7 @@ const initialVEFAProjects: VEFAProject[] = [
     spentBudget: 3200000000,
     ownerName: "Atoo Groupbilier",
     developerName: "Premium Build",
-    contactEmail: "vefa004@barakaimmo.com",
+    contactEmail: "vefa004@Atooimmo.com",
     contactPhone: "+221 77 888 99 00",
     totalUnits: 25,
     tags: ["premium", "luxury", "beachfront"],
@@ -818,11 +818,11 @@ export function VEFAManagementAdmin({ onNavigate }: VEFAManagementAdminProps) {
         milestones: selectedProject.milestones.map((m) =>
           m.id === milestoneId
             ? {
-                ...m,
-                paidStatus: "paid" as const,
-                paymentDate: new Date().toISOString(),
-                receiptUrl: `receipt-${milestoneId}.pdf`,
-              }
+              ...m,
+              paidStatus: "paid" as const,
+              paymentDate: new Date().toISOString(),
+              receiptUrl: `receipt-${milestoneId}.pdf`,
+            }
             : m,
         ),
       };
@@ -1186,10 +1186,10 @@ export function VEFAManagementAdmin({ onNavigate }: VEFAManagementAdminProps) {
                   style={
                     !selectedTag
                       ? {
-                          backgroundColor: "#933096",
-                          color: "#ffffff",
-                          borderColor: "#933096",
-                        }
+                        backgroundColor: "#933096",
+                        color: "#ffffff",
+                        borderColor: "#933096",
+                      }
                       : {}
                   }
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors border ${!selectedTag ? "" : "bg-neutral-100 text-neutral-700 border-neutral-300 hover:border-neutral-400"}`}
@@ -1205,10 +1205,10 @@ export function VEFAManagementAdmin({ onNavigate }: VEFAManagementAdminProps) {
                     style={
                       selectedTag === tag
                         ? {
-                            backgroundColor: "#933096",
-                            color: "#ffffff",
-                            borderColor: "#933096",
-                          }
+                          backgroundColor: "#933096",
+                          color: "#ffffff",
+                          borderColor: "#933096",
+                        }
                         : {}
                     }
                     className={`px-4 py-2 rounded-lg font-semibold transition-colors border ${selectedTag === tag ? "" : "bg-neutral-100 text-neutral-700 border-neutral-300 hover:border-neutral-400"}`}
@@ -1834,7 +1834,7 @@ export function VEFAManagementAdmin({ onNavigate }: VEFAManagementAdminProps) {
                     {Math.round(
                       (selectedProject.spentBudget /
                         selectedProject.totalBudget) *
-                        100,
+                      100,
                     )}
                     %
                   </span>

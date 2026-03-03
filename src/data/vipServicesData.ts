@@ -5,8 +5,8 @@ import { VIPService, ServiceRequest, Milestone } from '../types';
 export const vipServices: VIPService[] = [
   {
     id: 'service-1',
-    type: 'verification-hors-baraka',
-    name: 'Vérification Hors Baraka',
+    type: 'verification-hors-Atoo',
+    name: 'Vérification Hors Atoo',
     description: 'Vérification physique d\'un bien immobilier avec rapport détaillé fourni au client. Notre équipe se déplace sur site pour inspecter le bien et vous fournit un rapport complet.',
     icon: 'search-check',
     zonePrices: [
@@ -56,8 +56,8 @@ export const vipServices: VIPService[] = [
   },
   {
     id: 'service-4',
-    type: 'achat-hors-baraka',
-    name: 'Achat Hors Baraka',
+    type: 'achat-hors-Atoo',
+    name: 'Achat Hors Atoo',
     description: 'Mandat donné à Atoo Group pour acquérir un bien hors catalogue. Accompagnement complet dans le processus d\'achat : négociation, vérification juridique, sécurisation de la transaction.',
     icon: 'handshake',
     zonePrices: [
@@ -79,8 +79,8 @@ export const serviceRequests: ServiceRequest[] = [
   {
     id: 'req-1',
     serviceId: 'service-1',
-    serviceName: 'Vérification Hors Baraka',
-    serviceType: 'verification-hors-baraka',
+    serviceName: 'Vérification Hors Atoo',
+    serviceType: 'verification-hors-Atoo',
     clientId: 'client-vip-1',
     clientName: 'Amadou Diallo',
     status: 'en-cours',
@@ -352,8 +352,8 @@ export const serviceRequests: ServiceRequest[] = [
   {
     id: 'req-4',
     serviceId: 'service-4',
-    serviceName: 'Achat Hors Baraka',
-    serviceType: 'achat-hors-baraka',
+    serviceName: 'Achat Hors Atoo',
+    serviceType: 'achat-hors-Atoo',
     clientId: 'client-vip-1',
     clientName: 'Amadou Diallo',
     status: 'refusee',

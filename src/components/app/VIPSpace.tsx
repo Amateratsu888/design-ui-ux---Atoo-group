@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  Crown, 
-  Star, 
-  Search, 
-  Calendar, 
+import {
+  Crown,
+  Star,
+  Search,
+  Calendar,
   Send,
   Plus,
   ChevronRight,
@@ -66,10 +66,10 @@ const StatusBadge = ({ status }: { status: ServiceRequestStatus }) => {
     'terminee': { label: 'Terminée', className: 'bg-green-100 text-green-800 border-green-200', icon: CheckCircle2 },
     'suspendue': { label: 'Suspendue', className: 'bg-neutral-100 text-neutral-800 border-neutral-200', icon: Pause },
   };
-  
+
   const config = statusConfig[status];
   const Icon = config.icon;
-  
+
   return (
     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${config.className}`}>
       <Icon className="w-3.5 h-3.5" />
@@ -85,10 +85,10 @@ const MilestoneStatusBadge = ({ status }: { status: MilestoneStatus }) => {
     'suspendue': { label: 'Suspendue', className: 'bg-neutral-100 text-neutral-800', icon: Pause },
     'en-attente-validation': { label: 'En attente', className: 'bg-amber-100 text-amber-800', icon: AlertCircle },
   };
-  
+
   const config = statusConfig[status];
   const Icon = config.icon;
-  
+
   return (
     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${config.className}`}>
       <Icon className="w-3 h-3" />
@@ -184,36 +184,36 @@ const mockClientVEFAProjects: ClientVEFAProject[] = [
     contractSigned: true,
     contractSignedAt: '2024-03-10',
     milestones: [
-      { 
-        id: 'm1', 
-        title: 'Fondations et gros œuvre', 
-        description: 'Terrassement, fondations, dalle béton', 
-        status: 'terminee', 
-        order: 1, 
+      {
+        id: 'm1',
+        title: 'Fondations et gros œuvre',
+        description: 'Terrassement, fondations, dalle béton',
+        status: 'terminee',
+        order: 1,
         completedAt: '2024-05-20',
         proofs: [
           { type: 'image', name: 'fondations-1.jpg', date: '2024-05-15' },
           { type: 'document', name: 'rapport-conformite.pdf', date: '2024-05-20' },
         ],
       },
-      { 
-        id: 'm2', 
-        title: 'Élévation des murs et toiture', 
-        description: 'Construction des murs porteurs, charpente et toiture', 
-        status: 'terminee', 
-        order: 2, 
+      {
+        id: 'm2',
+        title: 'Élévation des murs et toiture',
+        description: 'Construction des murs porteurs, charpente et toiture',
+        status: 'terminee',
+        order: 2,
         completedAt: '2024-08-25',
         proofs: [
           { type: 'image', name: 'elevation-1.jpg', date: '2024-08-10' },
           { type: 'image', name: 'toiture-complete.jpg', date: '2024-08-25' },
         ],
       },
-      { 
-        id: 'm3', 
-        title: 'Finitions intérieures', 
-        description: 'Plomberie, électricité, revêtements sols et murs', 
-        status: 'en-cours', 
-        order: 3, 
+      {
+        id: 'm3',
+        title: 'Finitions intérieures',
+        description: 'Plomberie, électricité, revêtements sols et murs',
+        status: 'en-cours',
+        order: 3,
         completedAt: null,
         proofs: [
           { type: 'image', name: 'plomberie-installation.jpg', date: '2025-01-02' },
@@ -235,16 +235,16 @@ const mockClientVEFAProjects: ClientVEFAProject[] = [
 // ============ SUB COMPONENTS ============
 
 // Service Card Component
-const ServiceCard = ({ 
-  service, 
-  onSelect 
-}: { 
-  service: VIPService; 
+const ServiceCard = ({
+  service,
+  onSelect
+}: {
+  service: VIPService;
   onSelect: (service: VIPService) => void;
 }) => {
   const minPrice = Math.min(...service.zonePrices.map(z => z.price));
   const maxPrice = Math.max(...service.zonePrices.map(z => z.price));
-  
+
   return (
     <Card className="hover:shadow-lg transition-shadow cursor-pointer group" onClick={() => onSelect(service)}>
       <CardHeader>
@@ -271,14 +271,14 @@ const ServiceCard = ({
 };
 
 // Service Request Form Modal
-const ServiceRequestModal = ({ 
-  service, 
-  isOpen, 
+const ServiceRequestModal = ({
+  service,
+  isOpen,
   onClose,
   onSubmit,
-}: { 
-  service: VIPService; 
-  isOpen: boolean; 
+}: {
+  service: VIPService;
+  isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: any) => void;
 }) => {
@@ -288,9 +288,9 @@ const ServiceRequestModal = ({
     description: '',
     files: [] as File[],
   });
-  
+
   const selectedZone = service.zonePrices.find(z => z.zoneId === formData.zoneId);
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
@@ -306,15 +306,15 @@ const ServiceRequestModal = ({
   };
 
   if (!isOpen) return null;
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/50" 
+      <div
+        className="fixed inset-0 bg-black/50"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
       <div className="relative z-50 bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4 p-6">
         {/* Close Button */}
@@ -324,7 +324,7 @@ const ServiceRequestModal = ({
         >
           <XCircle className="w-6 h-6" />
         </button>
-        
+
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
@@ -335,7 +335,7 @@ const ServiceRequestModal = ({
             <p className="text-sm text-neutral-500">Créer une nouvelle demande de service</p>
           </div>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Zone Selection */}
           <div>
@@ -361,7 +361,7 @@ const ServiceRequestModal = ({
               </p>
             )}
           </div>
-          
+
           {/* Location */}
           <div>
             <label className="block text-sm font-medium text-neutral-700 mb-2">
@@ -376,7 +376,7 @@ const ServiceRequestModal = ({
               className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
           </div>
-          
+
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-neutral-700 mb-2">
@@ -391,7 +391,7 @@ const ServiceRequestModal = ({
               className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
           </div>
-          
+
           {/* File Upload */}
           <div>
             <label className="block text-sm font-medium text-neutral-700 mb-2">
@@ -434,7 +434,7 @@ const ServiceRequestModal = ({
               </div>
             )}
           </div>
-          
+
           {/* Price Summary */}
           {selectedZone && (
             <div className="bg-primary-50 rounded-lg p-4">
@@ -449,7 +449,7 @@ const ServiceRequestModal = ({
               </p>
             </div>
           )}
-          
+
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-4 border-t border-neutral-200">
             <Button type="button" variant="outline" onClick={onClose}>
@@ -467,26 +467,26 @@ const ServiceRequestModal = ({
 };
 
 // Request Card Component
-const RequestCard = ({ 
-  request, 
-  onView 
-}: { 
-  request: ServiceRequest; 
+const RequestCard = ({
+  request,
+  onView
+}: {
+  request: ServiceRequest;
   onView: (request: ServiceRequest) => void;
 }) => {
   const completedMilestones = request.milestones.filter(m => m.status === 'terminee').length;
   const totalMilestones = request.milestones.length;
   const progress = totalMilestones > 0 ? (completedMilestones / totalMilestones) * 100 : 0;
-  
+
   return (
     <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => onView(request)}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-              <ServiceIcon 
-                type={getServiceById(request.serviceId)?.icon || 'file-text'} 
-                className="w-5 h-5 text-primary-700" 
+              <ServiceIcon
+                type={getServiceById(request.serviceId)?.icon || 'file-text'}
+                className="w-5 h-5 text-primary-700"
               />
             </div>
             <div>
@@ -499,14 +499,14 @@ const RequestCard = ({
       </CardHeader>
       <CardContent className="pb-3">
         <p className="text-sm text-neutral-600 line-clamp-2 mb-3">{request.description}</p>
-        
+
         {request.location && (
           <div className="flex items-center gap-2 text-sm text-neutral-500 mb-3">
             <MapPin className="w-4 h-4" />
             <span className="truncate">{request.location}</span>
           </div>
         )}
-        
+
         {totalMilestones > 0 && request.status !== 'refusee' && (
           <div>
             <div className="flex justify-between text-xs text-neutral-500 mb-1">
@@ -521,7 +521,7 @@ const RequestCard = ({
             </div>
           </div>
         )}
-        
+
         {request.status === 'refusee' && request.rejectionReason && (
           <div className="bg-primary-50 border border-secondary-200 rounded-lg p-3 mt-2">
             <p className="text-xs text-secondary-700">{request.rejectionReason}</p>
@@ -539,14 +539,14 @@ const RequestCard = ({
 };
 
 // Milestone Timeline Component
-const MilestoneTimeline = ({ 
-  milestones, 
+const MilestoneTimeline = ({
+  milestones,
   userRole,
   onAddComment,
   onEditMilestone,
   onDeleteMilestone,
   onProtectMilestone,
-}: { 
+}: {
   milestones: Milestone[];
   userRole: UserRole;
   onAddComment?: (milestoneId: string, comment: string) => void;
@@ -558,50 +558,48 @@ const MilestoneTimeline = ({
     milestones.filter(m => m.status === 'en-cours').map(m => m.id)
   );
   const [commentText, setCommentText] = useState<Record<string, string>>({});
-  
+
   const canManageMilestones = userRole === 'admin' || userRole === 'technicien';
   const canProtect = userRole === 'admin';
-  
+
   const toggleMilestone = (id: string) => {
     setExpandedMilestones(prev =>
       prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
     );
   };
-  
+
   const sortedMilestones = [...milestones].sort((a, b) => a.order - b.order);
-  
+
   return (
     <div className="space-y-4">
       {sortedMilestones.map((milestone, index) => {
         const isExpanded = expandedMilestones.includes(milestone.id);
         const isLast = index === sortedMilestones.length - 1;
-        
+
         return (
           <div key={milestone.id} className="relative">
             {/* Timeline Line */}
             {!isLast && (
               <div className="absolute left-5 top-12 w-0.5 h-[calc(100%-24px)] bg-neutral-200" />
             )}
-            
+
             {/* Milestone Card */}
-            <div className={`border rounded-xl overflow-hidden transition-all ${
-              milestone.isProtected ? 'border-amber-300 bg-amber-50/30' : 'border-neutral-200 bg-white'
-            }`}>
+            <div className={`border rounded-xl overflow-hidden transition-all ${milestone.isProtected ? 'border-amber-300 bg-amber-50/30' : 'border-neutral-200 bg-white'
+              }`}>
               {/* Header */}
               <button
                 onClick={() => toggleMilestone(milestone.id)}
                 className="w-full flex items-start gap-4 p-4 text-left hover:bg-neutral-50 transition-colors"
               >
                 {/* Status Circle */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  milestone.status === 'terminee' 
-                    ? 'bg-green-100 text-green-600' 
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${milestone.status === 'terminee'
+                    ? 'bg-green-100 text-green-600'
                     : milestone.status === 'en-cours'
-                    ? 'bg-blue-100 text-blue-600'
-                    : milestone.status === 'suspendue'
-                    ? 'bg-neutral-100 text-neutral-600'
-                    : 'bg-amber-100 text-amber-600'
-                }`}>
+                      ? 'bg-blue-100 text-blue-600'
+                      : milestone.status === 'suspendue'
+                        ? 'bg-neutral-100 text-neutral-600'
+                        : 'bg-amber-100 text-amber-600'
+                  }`}>
                   {milestone.status === 'terminee' ? (
                     <CheckCircle2 className="w-5 h-5" />
                   ) : milestone.status === 'en-cours' ? (
@@ -612,7 +610,7 @@ const MilestoneTimeline = ({
                     <AlertCircle className="w-5 h-5" />
                   )}
                 </div>
-                
+
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -632,20 +630,19 @@ const MilestoneTimeline = ({
                     )}
                   </p>
                 </div>
-                
+
                 {/* Expand Icon */}
-                <ChevronDown className={`w-5 h-5 text-neutral-400 transition-transform ${
-                  isExpanded ? 'rotate-180' : ''
-                }`} />
+                <ChevronDown className={`w-5 h-5 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''
+                  }`} />
               </button>
-              
+
               {/* Expanded Content */}
               {isExpanded && (
                 <div className="px-4 pb-4 pl-18">
                   <div className="ml-14 space-y-4">
                     {/* Description */}
                     <p className="text-sm text-neutral-700">{milestone.description}</p>
-                    
+
                     {/* Estimated Duration */}
                     {milestone.estimatedDuration && (
                       <p className="text-sm text-neutral-500 flex items-center gap-2">
@@ -653,7 +650,7 @@ const MilestoneTimeline = ({
                         Durée estimée : {milestone.estimatedDuration}
                       </p>
                     )}
-                    
+
                     {/* Documents */}
                     {milestone.documents.length > 0 && (
                       <div>
@@ -684,7 +681,7 @@ const MilestoneTimeline = ({
                         </div>
                       </div>
                     )}
-                    
+
                     {/* Comments */}
                     {milestone.commentsEnabled && (
                       <div>
@@ -692,18 +689,17 @@ const MilestoneTimeline = ({
                           <MessageSquare className="w-4 h-4" />
                           Commentaires ({milestone.comments.length})
                         </h5>
-                        
+
                         {milestone.comments.length > 0 && (
                           <div className="space-y-3 mb-3">
                             {milestone.comments.map((comment) => (
                               <div key={comment.id} className="flex gap-3">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                  comment.authorRole === 'admin' 
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${comment.authorRole === 'admin'
                                     ? 'bg-primary-100 text-primary-700'
                                     : comment.authorRole === 'technicien'
-                                    ? 'bg-blue-100 text-blue-700'
-                                    : 'bg-amber-100 text-amber-700'
-                                }`}>
+                                      ? 'bg-blue-100 text-blue-700'
+                                      : 'bg-amber-100 text-amber-700'
+                                  }`}>
                                   <User className="w-4 h-4" />
                                 </div>
                                 <div className="flex-1">
@@ -721,7 +717,7 @@ const MilestoneTimeline = ({
                             ))}
                           </div>
                         )}
-                        
+
                         {/* Add Comment */}
                         {onAddComment && (
                           <div className="flex gap-2">
@@ -748,7 +744,7 @@ const MilestoneTimeline = ({
                         )}
                       </div>
                     )}
-                    
+
                     {/* Actions (Admin/Tech) */}
                     {canManageMilestones && !milestone.isProtected && (
                       <div className="flex gap-2 pt-2 border-t border-neutral-200">
@@ -797,11 +793,11 @@ const RequestDetailView = ({
 }) => {
   const canManageMilestones = userRole === 'admin' || userRole === 'technicien';
   const canValidateRequest = userRole === 'admin';
-  
+
   const handleAddComment = (milestoneId: string, comment: string) => {
     alert(`Commentaire ajouté à la milestone ${milestoneId}: ${comment}`);
   };
-  
+
   return (
     <div className="space-y-6">
       {/* Back Button */}
@@ -812,16 +808,16 @@ const RequestDetailView = ({
         <ArrowLeft className="w-5 h-5" />
         <span>Retour aux demandes</span>
       </button>
-      
+
       {/* Request Header */}
       <Card>
         <CardHeader>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 bg-primary-100 rounded-xl flex items-center justify-center">
-                <ServiceIcon 
-                  type={getServiceById(request.serviceId)?.icon || 'file-text'} 
-                  className="w-7 h-7 text-primary-700" 
+                <ServiceIcon
+                  type={getServiceById(request.serviceId)?.icon || 'file-text'}
+                  className="w-7 h-7 text-primary-700"
                 />
               </div>
               <div>
@@ -865,13 +861,13 @@ const RequestDetailView = ({
               </div>
             )}
           </div>
-          
+
           {/* Description */}
           <div>
             <h4 className="text-sm font-medium text-neutral-700 mb-2">Description de la demande</h4>
             <p className="text-sm text-neutral-600 whitespace-pre-line">{request.description}</p>
           </div>
-          
+
           {/* Client Documents */}
           {request.documents.length > 0 && (
             <div>
@@ -899,7 +895,7 @@ const RequestDetailView = ({
               </div>
             </div>
           )}
-          
+
           {/* Assigned Technician */}
           {request.assignedTechnicianName && (
             <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
@@ -912,7 +908,7 @@ const RequestDetailView = ({
               </div>
             </div>
           )}
-          
+
           {/* Rejection Reason */}
           {request.status === 'refusee' && request.rejectionReason && (
             <div className="bg-primary-50 border border-secondary-200 rounded-lg p-4">
@@ -925,7 +921,7 @@ const RequestDetailView = ({
               </div>
             </div>
           )}
-          
+
           {/* Admin Actions */}
           {canValidateRequest && request.status === 'en-attente-validation' && (
             <div className="flex gap-3 pt-4 border-t border-neutral-200">
@@ -941,7 +937,7 @@ const RequestDetailView = ({
           )}
         </CardContent>
       </Card>
-      
+
       {/* Milestones Section */}
       <Card>
         <CardHeader>
@@ -1007,29 +1003,29 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
   const [isContractModalOpen, setIsContractModalOpen] = useState(false);
   const [selectedVEFAProject, setSelectedVEFAProject] = useState<ClientVEFAProject | null>(null);
   const [selectedAnnuity, setSelectedAnnuity] = useState<ClientVEFAAnnuity | null>(null);
-  
+
   const vipProperties = properties.filter(p => p.vipOnly);
-  
+
   // Filter requests for current user (in real app, filter by userId)
   const userRequests = serviceRequests.filter(r => r.clientId === userId);
-  const filteredRequests = requestFilter === 'all' 
-    ? userRequests 
+  const filteredRequests = requestFilter === 'all'
+    ? userRequests
     : userRequests.filter(r => r.status === requestFilter);
-  
+
   const handleServiceSelect = (service: VIPService) => {
     setSelectedService(service);
     setIsRequestModalOpen(true);
   };
-  
+
   const handleRequestSubmit = (data: any) => {
     console.log('New request:', data);
     alert('Votre demande a été envoyée avec succès ! Vous serez notifié dès qu\'elle sera validée.');
   };
-  
+
   const handleViewRequest = (request: ServiceRequest) => {
     setSelectedRequest(request);
   };
-  
+
   // If viewing a specific request
   if (selectedRequest) {
     return (
@@ -1043,11 +1039,11 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
       </div>
     );
   }
-  
+
   return (
     <div className="space-y-6">
       {/* VIP Welcome Banner */}
-      <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-xl p-8 text-white">
+      <div className="rounded-xl p-8 text-white" style={{ background: 'linear-gradient(to bottom right, #933096, #7a2680)' }}>
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -1057,7 +1053,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
               <h2 className="!text-white text-2xl font-bold">Espace VIP</h2>
             </div>
             <p className="!text-white mb-6 max-w-2xl">
-              Bienvenue dans votre espace privilégié. Mandatez Atoo Group pour vos services immobiliers 
+              Bienvenue dans votre espace privilégié. Mandatez Atoo Group pour vos services immobiliers
               et suivez l'avancement de vos demandes en temps réel.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -1159,7 +1155,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
             )}
           </TabsTrigger>
         </TabsList>
-        
+
         {/* Services Tab */}
         <TabsContent value="services" className="mt-6">
           <div className="mb-6">
@@ -1168,7 +1164,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
               Sélectionnez un service pour créer une nouvelle demande. Notre équipe prendra en charge votre dossier dans les plus brefs délais.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {vipServices.filter(s => s.isActive).map((service) => (
               <ServiceCard
@@ -1179,7 +1175,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
             ))}
           </div>
         </TabsContent>
-        
+
         {/* Requests Tab */}
         <TabsContent value="requests" className="mt-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -1189,7 +1185,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
                 Suivez l'avancement de vos demandes et consultez les étapes de traitement
               </p>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4 text-neutral-500" />
               <select
@@ -1205,7 +1201,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
               </select>
             </div>
           </div>
-          
+
           {filteredRequests.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredRequests.map((request) => (
@@ -1223,7 +1219,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
                 {requestFilter === 'all' ? 'Aucune demande' : 'Aucune demande correspondante'}
               </h4>
               <p className="text-neutral-600 mb-4">
-                {requestFilter === 'all' 
+                {requestFilter === 'all'
                   ? 'Vous n\'avez pas encore créé de demande de service'
                   : 'Aucune demande ne correspond au filtre sélectionné'}
               </p>
@@ -1238,7 +1234,7 @@ export function VIPSpace({ onNavigate, userRole = 'vip', userId = 'client-vip-1'
         </TabsContent>
       </Tabs>
 
-     
+
 
       {/* Service Request Modal */}
       {selectedService && (
